@@ -2,10 +2,9 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:main_pjct_homecare/utils/constants/color_constants.dart';
 import 'package:main_pjct_homecare/utils/constants/image_constants.dart';
-import 'package:main_pjct_homecare/view/home_screen/bott_navigation_bar/booking_screen.dart';
-import 'package:main_pjct_homecare/view/home_screen/bott_navigation_bar/bott_navigation.dart';
+
 import 'package:main_pjct_homecare/view/home_screen/bott_navigation_bar/notification_screen.dart';
-import 'package:main_pjct_homecare/view/home_screen/bott_navigation_bar/profile_screen.dart';
+
 import 'package:main_pjct_homecare/view/home_screen/inner_screens/booking_details_screen.dart';
 import 'package:main_pjct_homecare/view/home_screen/inner_screens/quick_book_screen.dart';
 import 'package:main_pjct_homecare/view/login/login_screen.dart';
@@ -18,7 +17,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int selectedindex = 0;
   final List<String> names = [
     'Nursing Service',
     'Baby Sitter',
@@ -40,7 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
       "name": "Nursing \n Service",
     },
     {"images": "assets/images/Baby sitter.jpg", "name": "Baby \nSitter"},
-    {"images": "assets/images/geriatic care.jpg", "name": "Geriatic \n Care"},
+    {"images": "assets/images/geriatic care.jpg", "name": "Geriatric \n Care"},
     {
       "images": "assets/images/pre and post natal care.jpg",
       "name": "Pre and Post\n Natal Care",
@@ -118,7 +116,7 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             children: [
               CarouselSlider.builder(
-                itemCount: 5,
+                itemCount: images.length,
                 itemBuilder:
                     (context, index, realIndex) => Container(
                       width: 400,
@@ -203,7 +201,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: List.generate(5, (index) {
+                  children: List.generate(services.length, (index) {
                     return Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -222,7 +220,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           },
                           child: CircleAvatar(
                             radius: 35,
-                            backgroundColor: Colors.red,
+
                             backgroundImage: AssetImage(
                               services[index]['images']!,
                             ),
@@ -252,19 +250,21 @@ class _HomeScreenState extends State<HomeScreen> {
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
-                  spacing: 12,
                   children: List.generate(
-                    5,
-                    (index) => InkWell(
-                      onTap: () {},
-                      child: Container(
-                        height: 125,
-                        width: 200,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          image: DecorationImage(
-                            image: AssetImage(images[index]),
-                            fit: BoxFit.cover,
+                    services.length,
+                    (index) => Padding(
+                      padding: const EdgeInsets.only(right: 12),
+                      child: InkWell(
+                        onTap: () {},
+                        child: Container(
+                          height: 125,
+                          width: 200,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            image: DecorationImage(
+                              image: AssetImage(images[index]),
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
                       ),

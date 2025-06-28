@@ -13,6 +13,7 @@ class BookingDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.green,
         title: Text(
           "Booking for $name",
           style: TextStyle(fontWeight: FontWeight.w600),
