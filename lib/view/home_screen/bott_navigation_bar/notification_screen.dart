@@ -6,8 +6,14 @@ class NotificationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(backgroundColor: Colors.yellow),
-      backgroundColor: Colors.yellow,
+      appBar: AppBar(
+        backgroundColor: Colors.green,
+        title: Text(
+          "Notification",
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+      ),
+      backgroundColor: Colors.grey,
       body: Center(child: Text("notification")),
     );
   }

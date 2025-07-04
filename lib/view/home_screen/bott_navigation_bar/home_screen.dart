@@ -35,7 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
   static List<Map<String, String>> services = [
     {
       "images": "assets/images/Nursing service.jpg",
-      "name": "Nursing \n Service",
+      "name": "Nursing \nService",
     },
     {"images": "assets/images/Baby sitter.jpg", "name": "Baby \nSitter"},
     {"images": "assets/images/geriatic care.jpg", "name": "Geriatric \n Care"},
@@ -50,7 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: ColorConstants.green,
+        backgroundColor: ColorConstants.lightgreen,
         leading: CircleAvatar(
           radius: 30,
           backgroundImage: AssetImage(ImageConstants.profile),
@@ -212,7 +212,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               MaterialPageRoute(
                                 builder:
                                     (context) => BookingDetailsScreen(
-                                      index: index,
+                                      categoryindex: index,
                                       name: names[index],
                                     ),
                               ),

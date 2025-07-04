@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class BookingScreenController with ChangeNotifier {
   DateTime? fromdate;
@@ -78,5 +79,25 @@ class BookingScreenController with ChangeNotifier {
     selecteditem = value;
     //priceperday = itemlist[value] ?? 700;
     notifyListeners();
+  }
+
+  Future<void> saveBooking({
+    required String name,
+    required String phone,
+    required String address,
+    required String paymentId,
+  }) async {
+    await FirebaseFirestore.instance.collection('bookings').add({
+      'name': name,
+      'phone': phone,
+      'address': address,
+      'service': selecteditem,
+      'fromdate': fromdate,
+      'todate': todate,
+      'totalDays': numberOfDays,
+      'totalPrice': totalPrice,
+      'paymentId': paymentId,
+      'createdAt': FieldValue.serverTimestamp(),
+    });
   }
 }

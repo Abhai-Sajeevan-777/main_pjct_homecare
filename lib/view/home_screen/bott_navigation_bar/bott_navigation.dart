@@ -20,7 +20,14 @@ class _BottNavigationState extends State<BottNavigation> {
     HomeScreen(),
     BookingScreen(fromDate: "", toDate: "", service: "", address: ""),
     //NotificationScreen(),
-    ProfileScreen(),
+    ProfileScreen(
+      name: "",
+      email: "",
+      phone: "",
+      address: "",
+      gender: "",
+      age: "",
+    ),
   ];
   @override
   Widget build(BuildContext context) {

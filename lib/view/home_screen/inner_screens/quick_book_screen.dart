@@ -14,12 +14,16 @@ class QuickBookScreen extends StatefulWidget {
 class _QuickBookScreenState extends State<QuickBookScreen> {
   //int? index;
   final formkey = GlobalKey<FormState>();
-  TextEditingController todateController = TextEditingController();
-  TextEditingController fromdateController = TextEditingController();
-  TextEditingController addresscontroller = TextEditingController();
+  late final TextEditingController namecontroller = TextEditingController();
+  late final TextEditingController phonecontroller = TextEditingController();
+  late final TextEditingController todateController = TextEditingController();
+  late final TextEditingController fromdateController = TextEditingController();
+  late final TextEditingController addresscontroller = TextEditingController();
 
   @override
   void dispose() {
+    namecontroller.dispose();
+    phonecontroller.dispose();
     fromdateController.dispose();
     todateController.dispose();
     addresscontroller.dispose();
@@ -39,6 +43,8 @@ class _QuickBookScreenState extends State<QuickBookScreen> {
         actions: [
           IconButton(
             onPressed: () {
+              namecontroller.clear();
+              phonecontroller.clear();
               fromdateController.clear();
               todateController.clear();
               addresscontroller.clear();
@@ -56,6 +62,68 @@ class _QuickBookScreenState extends State<QuickBookScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Text("Name", style: TextStyle(fontWeight: FontWeight.bold)),
+                TextFormField(
+                  controller: namecontroller,
+                  validator: (value) {
+                    if (value == null || value.trim().isEmpty) {
+                      return 'Enter your name';
+                    }
+                    return null;
+                  },
+                  decoration: InputDecoration(
+                    hintText: "Full Name",
+
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.grey),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.red),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 15),
+
+                Text(
+                  "Phone Number",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                TextFormField(
+                  controller: phonecontroller,
+                  validator: (value) {
+                    if (value == null || value.trim().isEmpty) {
+                      return 'Enter your phone number';
+                    }
+                    if (value.length != 10) {
+                      return 'Enter your 10 dight phone number';
+                    }
+                    return null;
+                  },
+                  decoration: InputDecoration(
+                    hintText: "10 digit number",
+
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.grey),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.red),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 15),
+
                 Text(
                   "From Date",
                   style: TextStyle(fontWeight: FontWeight.bold),
@@ -138,35 +206,47 @@ class _QuickBookScreenState extends State<QuickBookScreen> {
                 SizedBox(height: 15),
                 Text("Services", style: TextStyle(fontWeight: FontWeight.bold)),
 
-                Container(
-                  padding: EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: Colors.grey),
-                  ),
-                  child: DropdownButton(
-                    isExpanded: true,
-                    dropdownColor: Colors.white,
-                    hint: Text("Select Service", style: TextStyle()),
-                    value: screenstate.selecteditem,
-
-                    items: List.generate(
-                      screenstate.itemlist.length,
-                      (index) => DropdownMenuItem(
-                        value: screenstate.itemlist[index],
-                        child: Text(screenstate.itemlist[index].toUpperCase()),
-                      ),
+                DropdownButtonFormField(
+                  value: screenstate.selecteditem,
+                  validator: (value) {
+                    if (value == null) {
+                      return "Please select a service";
+                    }
+                    return null;
+                  },
+                  isExpanded: true,
+                  decoration: InputDecoration(
+                    hintText: "Select Service",
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.grey),
                     ),
-                    onChanged: (value) {
-                      screenstate.onselecteditem(value);
-                    },
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.red),
+                    ),
                   ),
+                  items: List.generate(
+                    screenstate.itemlist.length,
+                    (index) => DropdownMenuItem(
+                      value: screenstate.itemlist[index],
+                      child: Text(screenstate.itemlist[index].toUpperCase()),
+                    ),
+                  ),
+                  onChanged: (value) {
+                    screenstate.onselecteditem(value);
+                  },
                 ),
+
                 SizedBox(height: 15),
                 Text("Address", style: TextStyle(fontWeight: FontWeight.bold)),
 
                 TextFormField(
-                  maxLines: 6,
+                  maxLines: 3,
                   controller: addresscontroller,
                   validator:
                       (value) =>
@@ -193,7 +273,13 @@ class _QuickBookScreenState extends State<QuickBookScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("Total Days :", style: TextStyle(fontSize: 17)),
+                    Text(
+                      "Total Days :",
+                      style: TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                     Text(
                       "${screenstate.numberOfDays}",
                       style: TextStyle(
@@ -207,7 +293,13 @@ class _QuickBookScreenState extends State<QuickBookScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("Total Price :", style: TextStyle(fontSize: 17)),
+                    Text(
+                      "Total Price :",
+                      style: TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                     Text(
                       "₹${screenstate.totalPrice}",
                       style: TextStyle(
@@ -306,11 +398,42 @@ class _QuickBookScreenState extends State<QuickBookScreen> {
     * 2. Payment ID
     * 3. Signature
     * */
-    showAlertDialog(
-      context,
-      "Payment Successful",
-      "Payment ID: ${response.paymentId}",
-    );
+
+    //--------------------------------
+
+    // showAlertDialog(
+    //   context,
+    //   "Payment Successful",
+    //   "Payment ID: ${response.paymentId}",
+    // );
+
+    // showAlertDialog(context, "Error", "Failed to save booking :$e");
+
+    final screenprovider = context.read<BookingScreenController>();
+
+    screenprovider
+        .saveBooking(
+          name: namecontroller.text.trim(),
+          phone: phonecontroller.text.trim(),
+          address: addresscontroller.text.trim(),
+          paymentId: response.paymentId ?? '',
+        )
+        .then((value) {
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text("Booking saved successfully")));
+          screenprovider.reset();
+          namecontroller.clear();
+          phonecontroller.clear();
+          addresscontroller.clear();
+          todateController.clear();
+          fromdateController.clear();
+        })
+        .catchError((error) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text("Error Saving booking : $error")),
+          );
+        });
   }
 
   void handleExternalWalletSelected(ExternalWalletResponse response) {

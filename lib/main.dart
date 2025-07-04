@@ -1,6 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:main_pjct_homecare/controller/booking_nurse_controller.dart';
 import 'package:main_pjct_homecare/controller/booking_screen_controller.dart';
+import 'package:main_pjct_homecare/controller/category_booking_screen_controller.dart';
+import 'package:main_pjct_homecare/controller/edit_profile_controller.dart';
 import 'package:main_pjct_homecare/controller/login_screen_controller.dart';
 import 'package:main_pjct_homecare/controller/registration_screen_controller.dart';
 import 'package:main_pjct_homecare/firebase_options.dart';
@@ -28,6 +31,11 @@ class Myapp extends StatelessWidget {
         ),
         ChangeNotifierProvider(create: (context) => LoginScreenController()),
         ChangeNotifierProvider(create: (context) => BookingScreenController()),
+        ChangeNotifierProvider(
+          create: (context) => CategoryBookingScreenController(),
+        ),
+        ChangeNotifierProvider(create: (context) => BookingNurseController()),
+        ChangeNotifierProvider(create: (context) => EditProfileController()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

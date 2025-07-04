@@ -1,275 +1,97 @@
 import 'package:flutter/material.dart';
 import 'package:main_pjct_homecare/utils/constants/color_constants.dart';
-import 'package:main_pjct_homecare/utils/constants/image_constants.dart';
-import 'package:main_pjct_homecare/view/login/login_screen.dart';
+import 'package:main_pjct_homecare/view/home_screen/inner_screens/edit_profile_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
+  final String name;
+  final String email;
+  final String phone;
+  final String address;
+  final String? gender;
+  final String age;
+  const ProfileScreen({
+    super.key,
+    required this.name,
+    required this.email,
+    required this.phone,
+    required this.address,
+    required this.gender,
+    required this.age,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          "Account Details",
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
+        backgroundColor: ColorConstants.green,
+        title: Text("Profile"),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => EditProfileScreen()),
+              );
+            },
+            icon: Icon(Icons.edit),
+          ),
+        ],
       ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: SingleChildScrollView(
-            child: Column(
+      body: Column(
+        children: [
+          Expanded(
+            child: ListView(
+              padding: EdgeInsets.all(16),
               children: [
-                CircleAvatar(
-                  radius: 35,
-
-                  backgroundImage: AssetImage(ImageConstants.profile),
-                ),
-                ExpansionTile(
-                  title: Text(
-                    "Name",
-                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-                  ),
-                  subtitle: Text(
-                    "Please set your name",
-                    style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold),
-                  ),
+                Row(
                   children: [
-                    TextField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: "Full Name",
-                      ),
-                    ),
-                    Container(
-                      height: 40,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.orange,
-                      ),
-                      child: Center(child: Text("Save")),
-                    ),
-                  ],
-                ),
-                ExpansionTile(
-                  title: Text(
-                    "Bio",
-                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-                  ),
-                  subtitle: Text(
-                    "Please set a short description about you",
-                    style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold),
-                  ),
-                  children: [
-                    TextField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: "short note about yourself",
-                      ),
-                    ),
-                    Container(
-                      height: 40,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.orange,
-                      ),
-                      child: Center(child: Text("Save")),
-                    ),
-                  ],
-                ),
-                ExpansionTile(
-                  title: Text(
-                    "email id",
-                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-                  ),
-                  subtitle: Text(
-                    "Please set your email adress",
-                    style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold),
-                  ),
-                  children: [
-                    TextField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: "email address",
-                      ),
-                    ),
-                    Container(
-                      height: 40,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.orange,
-                      ),
-                      child: Center(child: Text("Save")),
-                    ),
-                  ],
-                ),
-                ExpansionTile(
-                  title: Text(
-                    "mobile number",
-                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-                  ),
-                  subtitle: Text(
-                    "Please set your mobile number",
-                    style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold),
-                  ),
-                  children: [
-                    TextField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: "phone number",
-                      ),
-                    ),
-                    Container(
-                      height: 40,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.orange,
-                      ),
-                      child: Center(child: Text("Save")),
-                    ),
-                  ],
-                ),
-                ExpansionTile(
-                  title: Text(
-                    "bank account",
-                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-                  ),
-                  subtitle: Text(
-                    "Please set your bank details",
-                    style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold),
-                  ),
-                  children: [
-                    TextField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: "acc number",
-                      ),
-                    ),
-                    TextField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: "IFSC Code",
-                      ),
-                    ),
-                    Container(
-                      height: 40,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.orange,
-                      ),
-                      child: Center(child: Text("Save")),
-                    ),
-                  ],
-                ),
-                ExpansionTile(
-                  title: Text(
-                    "Address",
-                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-                  ),
-                  subtitle: Text(
-                    "Please update your address",
-                    style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold),
-                  ),
-                  children: [
-                    TextField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: "Full address",
-                      ),
-                    ),
-                    TextField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: "postal code",
-                      ),
-                    ),
-                    Container(
-                      height: 40,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.orange,
-                      ),
-                      child: Center(child: Text("Save")),
-                    ),
-                  ],
-                ),
-                ExpansionTile(
-                  title: Text(
-                    "Aadhar number",
-                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-                  ),
-                  subtitle: Text(
-                    "Please set your Aadhar number",
-                    style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold),
-                  ),
-                  children: [
-                    TextField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: "Aadhar id number",
-                      ),
-                    ),
-                    Container(
-                      height: 40,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.orange,
-                      ),
-                      child: Center(child: Text("Save")),
-                    ),
-                  ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: InkWell(
-                    onTap: () {
-                      Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(builder: (context) => LoginScreen()),
-                        (route) => false,
-                      );
-                    },
-                    child: Container(
-                      height: 40,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.red,
-                      ),
-                      child: Center(
-                        child: Text(
-                          "Sign out",
+                    Column(
+                      children: [
+                        Text(
+                          "Name",
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                      ),
+                        Text("email"),
+                        Text("phone"),
+                      ],
                     ),
-                  ),
+                  ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: TextButton(
-                    onPressed: () {},
-                    child: Text(
-                      "Delete account",
-                      style: TextStyle(fontSize: 20, color: Colors.red),
-                    ),
-                  ),
-                ),
+                SizedBox(height: 10),
+
+                Divider(height: 12),
+                ListTile(title: Text("Address"), subtitle: Text("address")),
+                ListTile(title: Text("Gender"), subtitle: Text("gender")),
+                ListTile(title: Text("Age"), subtitle: Text("age")),
               ],
             ),
           ),
-        ),
+
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            child: Container(
+              height: 50,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadiusDirectional.circular(10),
+                color: Colors.red,
+              ),
+              child: Center(
+                child: Text(
+                  "Sign out",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
